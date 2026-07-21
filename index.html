@@ -254,10 +254,10 @@
     <button class="btn alt" id="menuBtn">Menu</button>
   </div>
 </div>
-<script src="/three.min.js"></script>
-<script src="/data.js"></script>
-<script src="/ads.js"></script>
-<script src="/music.js"></script>
+<script src="three.min.js"></script>
+<script src="data.js"></script>
+<script src="ads.js"></script>
+<script src="music.js"></script>
 <script>
 /* Boot glue: initialize the CrazyGames SDK (if present), wire the username and
    cloud-save into BSData, then load the game. Falls back cleanly to localStorage
@@ -265,7 +265,7 @@
 (async function () {
   function loadGame() {
     var s = document.createElement('script');
-    s.src = '/game.js';
+    s.src = 'game.js';
     document.body.appendChild(s);
   }
   try {

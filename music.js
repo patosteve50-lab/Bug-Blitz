@@ -1,5 +1,5 @@
 (function () {
-  const TRACKS = { menu:'/music_menu.mp3', gameA:'/music_game_a.mp3', gameB:'/music_game_b.mp3' };
+  const TRACKS = { menu:'music_menu.mp3', gameA:'music_game_a.mp3', gameB:'music_game_b.mp3' };
   let ctx=null, dest=null; const buffers={};
   let current=null, ready=false, attaching=false, pending=null;
   async function attach(audioCtx, destinationNode){
