@@ -123,7 +123,7 @@ const Audio = (() => {
   let curScale = SCALES[0], curRoot = 55, kickStep=0;
   function startMusic(levelIdx, intense){
     if(!ctx) return; stopMusic();
-    _initMusic(); if(window.BSMusic){ var _hard=(intense||levelIdx>=3); BSMusic.play(_hard?'gameB':'gameA'); if(BSMusic.ready) return; }
+    _initMusic(); if(window.BSMusic){ var _hard=(intense||levelIdx>=3); BSMusic.play(_hard?'gameB':'gameA'); return; }
     curScale = SCALES[levelIdx % SCALES.length];
     curRoot = 41 + (levelIdx%4)*3; musicStep=0; drumLayer=!!intense;
     const tempo = 0.28 - Math.min(levelIdx,6)*0.012;
@@ -141,7 +141,7 @@ const Audio = (() => {
   function stopMusic(){ if(musicTimer){ clearInterval(musicTimer); musicTimer=null; } if(window.BSMusic) BSMusic.stop(); }
   function setMuted(m){ muted=m; if(master) master.gain.value=m?0:1.0; }
   function resume(){ if(ctx&&ctx.state==='suspended') ctx.resume(); }
-  function startMenuMusic(){ if(!ctx) return; stopMusic(); _initMusic(); if(window.BSMusic){ BSMusic.play('menu'); if(BSMusic.ready) return; } curScale=[0,3,7,10,12]; curRoot=36; musicStep=0; drumLayer=false; musicTimer=setInterval(()=>{ if(muted) return; const s=musicStep; if(s%8===0){ const bn=curRoot*Math.pow(2,(curScale[(s/8)%curScale.length])/12); tone(bn,1.4,'sine',0.4,musicGain,1); } if(s%4===0){ const an=curRoot*3*Math.pow(2,(curScale[s%curScale.length])/12); tone(an,0.9,'triangle',0.22,musicGain); } if(s%16===10){ const sp=curRoot*6*Math.pow(2,(curScale[s%curScale.length])/12); tone(sp,0.7,'sine',0.12,musicGain); } musicStep=(musicStep+1)%64; }, 360); }
+  function startMenuMusic(){ if(!ctx) return; stopMusic(); _initMusic(); if(window.BSMusic){ BSMusic.play('menu'); return; } curScale=[0,3,7,10,12]; curRoot=36; musicStep=0; drumLayer=false; musicTimer=setInterval(()=>{ if(muted) return; const s=musicStep; if(s%8===0){ const bn=curRoot*Math.pow(2,(curScale[(s/8)%curScale.length])/12); tone(bn,1.4,'sine',0.4,musicGain,1); } if(s%4===0){ const an=curRoot*3*Math.pow(2,(curScale[s%curScale.length])/12); tone(an,0.9,'triangle',0.22,musicGain); } if(s%16===10){ const sp=curRoot*6*Math.pow(2,(curScale[s%curScale.length])/12); tone(sp,0.7,'sine',0.12,musicGain); } musicStep=(musicStep+1)%64; }, 360); }
   return { init, sfx, startMusic, startMenuMusic, setIntensity, stopMusic, setMuted, resume, get muted(){return muted;} };
 })();
 
